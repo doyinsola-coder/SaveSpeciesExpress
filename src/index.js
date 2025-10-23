@@ -12,7 +12,19 @@ import paystackRoutes from "./routes/paystackRoutes.js";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+// ✅ FIXED CORS Configuration
+app.use(cors({
+  origin: [
+    "http://localhost:5173",           // Local development (Vite)
+    "http://localhost:3000",           // Local development (React)
+    "http://localhost:5174",           // Alternative local port          // Production frontend from .env
+    "https://save-species.vercel.app/",  // Replace with your actual URL
+  ].filter(Boolean), // Remove undefined/null values
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json());
 
 // Connect to MongoDB
@@ -28,7 +40,6 @@ app.use("/api/pledges", pledgeRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/donations", donationRoutes);
 app.use("/api/paystack", paystackRoutes);
-
 
 // Default route
 app.get("/", (req, res) => res.send("🌍 SaveSpecies Backend Running"));
