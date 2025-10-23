@@ -17,9 +17,8 @@ app.use(cors({
   origin: [
     "http://localhost:5173",           // Local development (Vite)
     "http://localhost:3000",           // Local development (React)
-    "http://localhost:5174",           // Alternative local port          // Production frontend from .env
-    "https://save-species.vercel.app/",  // Replace with your actual URL
-  ].filter(Boolean), // Remove undefined/null values
+    "https://save-species.vercel.app"  // Your production frontend
+  ],
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"]
